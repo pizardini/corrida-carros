@@ -1,17 +1,25 @@
 class Categoria {
     private String nome;
-    private int nDigitos;
+    private int digitos;
 
-    public Categoria(String nome, int nDigitos) {
+    public Categoria(String nome, int digitos) {
         this.nome = nome;
-        this.nDigitos = nDigitos;
+        this.digitos = digitos;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public int getNDigitos() {
-        return nDigitos;
+    public int getDigitos() {
+        return digitos;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "nome='" + nome + '\'' +
+                ", nDigitos=" + digitos +
+                '}';
     }
 }
