@@ -5,15 +5,19 @@ class Carro {
     private Categoria categoria;
     private int rpmPMax;
     private CurvaTorque curvaTorque;
-    private CurvaPotencia curvaPotencia1;
-    private CurvaPotencia curvaPotencia2;
+    private CurvaPotencia curvaPAntesMax;
+    private CurvaPotencia curvaPDepoisMax;
 
-    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax) {
+    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax, CurvaTorque curvaTorque,
+                 CurvaPotencia curvaPAntesMax, CurvaPotencia curvaPDepoisMax) {
         this.numero = numero;
         this.marca = marca;
         this.modelo = modelo;
         this.categoria = categoria;
         this.rpmPMax = rpmPMax;
+        this.curvaTorque = curvaTorque;
+        this.curvaPAntesMax = curvaPAntesMax;
+        this.curvaPDepoisMax = curvaPDepoisMax;
 
 //        try {
             if (!validarNumero(categoria) || rpmPMax <= 0) {
@@ -46,61 +50,70 @@ class Carro {
         if (rotacao < 0) {
             throw new IllegalArgumentException("Rotação não pode ser negativa.");
         }
-
-        return curvaTorque.calcularTorque(rotacao);
+        double resultado = curvaTorque.calcularTorque(rotacao);
+        if (resultado < 0) {
+            throw new IllegalArgumentException("O valor de torque não pode ser negativo");
+        }
+        return resultado;
     }
+
 
     public double calcularPotencia(int rotacao) {
         if (rotacao < 0) {
             throw new IllegalArgumentException("Rotação não pode ser negativa.");
         }
-
-        return CurvaPotencia.calcularPotencia(rotacao);
-    }
-
-    private boolean comparacaoMelhor(Carro carro2) {
-        int[] rotacoes = {1000, 2000, 4000};
-        for (int rotacao : rotacoes) {
-            double torque1 = calcularTorque(rotacao);
-            double potencia1 = calcularPotencia(rotacao);
-            double torque2 = carro2.calcularTorque(rotacao);
-            double potencia2 = carro2.calcularPotencia(rotacao);
-            if (torque1 <= torque2 || potencia1 <= potencia2) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void melhorQue(Carro carro2) {
-        if (comparacaoMelhor(carro2)) {
-            System.out.println(getMarcaModeloFormatado() + " é melhor que " + carro2.getMarcaModeloFormatado());
+        if (rotacao <= rpmPMax) {
+            System.out.println("Rotação abaixo da ponto para potência máxima");
+            return curvaPAntesMax.calcularPotencia(rotacao);
         } else {
-            System.out.println(getMarcaModeloFormatado() + " não é melhor que " + carro2.getMarcaModeloFormatado());
+            System.out.println("Rotação acima do ponto para potência máxima");
+            return curvaPDepoisMax.calcularPotencia(rotacao);
         }
     }
 
-    private boolean comparacaoPior(Carro carro2) {
-        int[] rotacoes = {1000, 2000, 4000};
-        for (int rotacao : rotacoes) {
-            double torque1 = calcularTorque(rotacao);
-            double potencia1 = calcularPotencia(rotacao);
-            double torque2 = carro2.calcularTorque(rotacao);
-            double potencia2 = carro2.calcularPotencia(rotacao);
-            if (torque1 >= torque2 || potencia1 >= potencia2) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    private boolean comparacaoMelhor(Carro carro2) {
+//        int[] rotacoes = {1000, 2000, 4000};
+//        for (int rotacao : rotacoes) {
+//            double torque1 = calcularTorque(rotacao);
+//            double potencia1 = calcularPotencia(rotacao);
+//            double torque2 = carro2.calcularTorque(rotacao);
+//            double potencia2 = carro2.calcularPotencia(rotacao);
+//            if (torque1 <= torque2 || potencia1 <= potencia2) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
-    public void piorQue(Carro carro2) {
-        if (comparacaoPior(carro2)) {
-            System.out.println(getMarcaModeloFormatado() + " é pior que " + carro2.getMarcaModeloFormatado());
-        } else {
-            System.out.println(getMarcaModeloFormatado() + " não é pior que " + carro2.getMarcaModeloFormatado());
-        }
-    }
+//    public void melhorQue(Carro carro2) {
+//        if (comparacaoMelhor(carro2)) {
+//            System.out.println(getMarcaModeloFormatado() + " é melhor que " + carro2.getMarcaModeloFormatado());
+//        } else {
+//            System.out.println(getMarcaModeloFormatado() + " não é melhor que " + carro2.getMarcaModeloFormatado());
+//        }
+//    }
+
+//    private boolean comparacaoPior(Carro carro2) {
+//        int[] rotacoes = {1000, 2000, 4000};
+//        for (int rotacao : rotacoes) {
+//            double torque1 = calcularTorque(rotacao);
+//            double potencia1 = calcularPotencia(rotacao);
+//            double torque2 = carro2.calcularTorque(rotacao);
+//            double potencia2 = carro2.calcularPotencia(rotacao);
+//            if (torque1 >= torque2 || potencia1 >= potencia2) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+//    public void piorQue(Carro carro2) {
+//        if (comparacaoPior(carro2)) {
+//            System.out.println(getMarcaModeloFormatado() + " é pior que " + carro2.getMarcaModeloFormatado());
+//        } else {
+//            System.out.println(getMarcaModeloFormatado() + " não é pior que " + carro2.getMarcaModeloFormatado());
+//        }
+//    }
 
     public int getNumero() { //Método para leitura, de forma indireta, do número do carro.
         return numero;
@@ -126,8 +139,12 @@ class Carro {
         return curvaTorque;
     }
 
-    public CurvaPotencia getCurvaPotencia() {
-        return curvaPotencia;
+    public CurvaPotencia getCurvaPAntesMax() {
+        return curvaPAntesMax;
+    }
+
+    public CurvaPotencia getCurvaPDepoisMax() {
+        return curvaPDepoisMax;
     }
 
     @Override
@@ -137,9 +154,10 @@ class Carro {
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", categoria=" + categoria +
-                ", rpmPotenciaMaxima=" + rpmPMax +
+                ", rpmPMax=" + rpmPMax +
                 ", curvaTorque=" + curvaTorque +
-                ", curvaPotencia=" + curvaPotencia +
+                ", curvaPotencia1=" + curvaPAntesMax +
+                ", curvaPotencia2=" + curvaPDepoisMax +
                 '}';
     }
 }

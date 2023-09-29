@@ -10,9 +10,6 @@ class CurvaTorque {
     }
 
     public double calcularTorque(int rotacao) {
-        if (rotacao < 0) {
-            throw new IllegalArgumentException("Rotação não pode ser negativa.");
-        }
         return a * rotacao * rotacao + b * rotacao + c;
     }
 }
