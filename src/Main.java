@@ -6,15 +6,11 @@ public class Main {
         Categoria categoriaGT4 = new Categoria("GT4", 4);
 
 
-        Carro carro1 = new Carro(1, "Ferrari", "Testarossa", categoriaP1, 8000);
+        Carro carro1 = new Carro(1, "Ferrari", "testarossa", categoriaP1, 8000);
         Carro carro2 = new Carro(10, "Porsche", "911", categoriaP2, 7500);
         Carro carro3 = new Carro(100, "Audi", "R8", categoriaGT3, 7000);
         Carro carro4 = new Carro(1000, "Mercedes-Benz", "AMG GT", categoriaGT4, 6500);
 
-        System.out.println(carro1);
-        System.out.println(carro2);
-        System.out.println(carro3);
-        System.out.println(carro4);
-
+        System.out.println(carro1.apresentacaoCarro());
     }
 }

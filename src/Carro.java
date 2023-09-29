@@ -3,20 +3,27 @@ class Carro {
     private String marca;
     private String modelo;
     private Categoria categoria;
-    private int rpmPotenciaMaxima;
+    private int rpmPMax;
     private CurvaTorque curvaTorque;
-    private CurvaPotencia curvaPotencia;
+    private CurvaPotencia curvaPotencia1;
+    private CurvaPotencia curvaPotencia2;
 
-    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPotenciaMaxima) {
+    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax) {
         this.numero = numero;
         this.marca = marca;
         this.modelo = modelo;
         this.categoria = categoria;
-        this.rpmPotenciaMaxima = rpmPotenciaMaxima;
+        this.rpmPMax = rpmPMax;
 
-        if (!validarNumero(categoria)) {
-            throw new IllegalArgumentException("Número de carro inválido");
-        }
+//        try {
+            if (!validarNumero(categoria) || rpmPMax <= 0) {
+                throw new IllegalArgumentException("Número de carro ou RPM de potência máxima inválidos");
+            }
+//        }
+//        catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//            //Informando ao método que chamou a função (Main) sobre o erro
+//        }
     }
 
 
@@ -25,12 +32,14 @@ class Carro {
         return numDigitos == categoria.getDigitos();
     }
 
-    public String getMarcaModeloFormatado() {
+    public String getMarcaModeloFormatado() { //método para retornar a marca do carro (em caixa alta), seguida de um espaço
+        // em branco, seguido do modelo do carro, com apenas a primeira letra em caixa alta e as demais em caixa baixa.
         return marca.toUpperCase() + " " + modelo.substring(0, 1).toUpperCase() + modelo.substring(1).toLowerCase();
     }
 
-    public String apresentacaoCarro() {
-        return String.format("%0" + categoria.getDigitos() + "d", numero) + " " + categoria.getNome();
+    public String apresentacaoCarro() { //método para retornar uma apresentação do carro, definido como o seu número
+        // (com 1, 2, 3 ou 4 dígitos, de acordo com a sua categoria), seguido da sigla da categoria (P1, P2, P3 ou P4)
+        return numero + " " + categoria.getNome();
     }
 
     public double calcularTorque(int rotacao) {
@@ -46,7 +55,7 @@ class Carro {
             throw new IllegalArgumentException("Rotação não pode ser negativa.");
         }
 
-        return curvaPotencia.calcularPotencia(rotacao);
+        return CurvaPotencia.calcularPotencia(rotacao);
     }
 
     private boolean comparacaoMelhor(Carro carro2) {
@@ -93,7 +102,7 @@ class Carro {
         }
     }
 
-    public int getNumero() {
+    public int getNumero() { //Método para leitura, de forma indireta, do número do carro.
         return numero;
     }
 
@@ -109,8 +118,8 @@ class Carro {
         return categoria;
     }
 
-    public int getRpmPotenciaMaxima() {
-        return rpmPotenciaMaxima;
+    public int getRpmPMax() {
+        return rpmPMax;
     }
 
     public CurvaTorque getCurvaTorque() {
@@ -128,7 +137,7 @@ class Carro {
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", categoria=" + categoria +
-                ", rpmPotenciaMaxima=" + rpmPotenciaMaxima +
+                ", rpmPotenciaMaxima=" + rpmPMax +
                 ", curvaTorque=" + curvaTorque +
                 ", curvaPotencia=" + curvaPotencia +
                 '}';
