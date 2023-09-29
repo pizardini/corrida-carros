@@ -11,7 +11,7 @@ class Categoria {
         return nome;
     }
 
-    public int getnDigitos() {
+    public int getNDigitos() {
         return nDigitos;
     }
 }

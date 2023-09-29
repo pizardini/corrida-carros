@@ -17,4 +17,36 @@ class Carro {
         this.curvaPotencia = curvaPotencia;
     }
 
+    public boolean validarNumero() {
+        int numDigitos = String.valueOf(numero).length();
+        return numDigitos == categoria.getNDigitos() && numDigitos > 0;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public int getRpmPotenciaMaxima() {
+        return rpmPotenciaMaxima;
+    }
+
+    public CurvaTorque getCurvaTorque() {
+        return curvaTorque;
+    }
+
+    public CurvaPotencia getCurvaPotencia() {
+        return curvaPotencia;
+    }
 }
