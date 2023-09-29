@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0315d11-3321-459a-abd2-67e20e0d9242" name="Changes" comment="cálculo de torque e potência">
+    <list default="true" id="f0315d11-3321-459a-abd2-67e20e0d9242" name="Changes" comment="adição da potência elétrica para categoria P1 e correção no cálculo de potência">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Carro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
@@ -146,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696011394230</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="adição da potência elétrica para categoria P1 e correção no cálculo de potência">
+      <option name="closed" value="true" />
+      <created>1696012720426</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1696012720426</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,7 +176,8 @@
     <MESSAGE value="criação de métodos, e testes no main" />
     <MESSAGE value="correções em variáveis e adição de comentários" />
     <MESSAGE value="cálculo de torque e potência" />
-    <option name="LAST_COMMIT_MESSAGE" value="cálculo de torque e potência" />
+    <MESSAGE value="adição da potência elétrica para categoria P1 e correção no cálculo de potência" />
+    <option name="LAST_COMMIT_MESSAGE" value="adição da potência elétrica para categoria P1 e correção no cálculo de potência" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

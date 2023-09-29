@@ -90,57 +90,63 @@ class Carro {
             bonus = PEletricaMax;
         }
         if (rotacao <= rpmPMax) {
-            System.out.println("Rotação abaixo da ponto para potência máxima");
+//            System.out.println("Rotação abaixo do ponto para potência máxima");
             return curvaPAntesMax.calcularPotencia(rotacao) + bonus;
         } else {
-            System.out.println("Rotação acima do ponto para potência máxima");
+//            System.out.println("Rotação acima do ponto para potência máxima");
             return curvaPDepoisMax.calcularPotencia(rotacao) + bonus;
         }
     }
 
-//    private boolean comparacaoMelhor(Carro carro2) {
-//        int[] rotacoes = {1000, 2000, 4000};
-//        for (int rotacao : rotacoes) {
-//            double torque1 = calcularTorque(rotacao);
-//            double potencia1 = calcularPotencia(rotacao);
-//            double torque2 = carro2.calcularTorque(rotacao);
-//            double potencia2 = carro2.calcularPotencia(rotacao);
-//            if (torque1 <= torque2 || potencia1 <= potencia2) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    private boolean comparacaoMelhor(Carro carro2) {
+        if (!Objects.equals(categoria.getNome(), carro2.categoria.getNome())) {
+            throw new IllegalArgumentException("Carros de diferentes categorias não podem ser comparados");
+        }
+        int[] rotacoes = {1000, 2000, 4000};
+        for (int rotacao : rotacoes) {
+            double torque1 = calcularTorque(rotacao);
+            double potencia1 = calcularPotencia(rotacao);
+            double torque2 = carro2.calcularTorque(rotacao);
+            double potencia2 = carro2.calcularPotencia(rotacao);
+            if (torque1 <= torque2 && potencia1 <= potencia2) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-//    public void melhorQue(Carro carro2) {
-//        if (comparacaoMelhor(carro2)) {
-//            System.out.println(getMarcaModeloFormatado() + " é melhor que " + carro2.getMarcaModeloFormatado());
-//        } else {
-//            System.out.println(getMarcaModeloFormatado() + " não é melhor que " + carro2.getMarcaModeloFormatado());
-//        }
-//    }
+    public void melhorQue(Carro carro2) {
+        if (comparacaoMelhor(carro2)) {
+            System.out.println(getMarcaModeloFormatado() + " é melhor que " + carro2.getMarcaModeloFormatado());
+        } else {
+            System.out.println(getMarcaModeloFormatado() + " não é melhor que " + carro2.getMarcaModeloFormatado());
+        }
+    }
 
-//    private boolean comparacaoPior(Carro carro2) {
-//        int[] rotacoes = {1000, 2000, 4000};
-//        for (int rotacao : rotacoes) {
-//            double torque1 = calcularTorque(rotacao);
-//            double potencia1 = calcularPotencia(rotacao);
-//            double torque2 = carro2.calcularTorque(rotacao);
-//            double potencia2 = carro2.calcularPotencia(rotacao);
-//            if (torque1 >= torque2 || potencia1 >= potencia2) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    private boolean comparacaoPior(Carro carro2) {
+        if (!Objects.equals(categoria.getNome(), carro2.categoria.getNome())) {
+            throw new IllegalArgumentException("Carros de diferentes categorias não podem ser comparados");
+        }
+        int[] rotacoes = {1000, 2000, 4000};
+        for (int rotacao : rotacoes) {
+            double torque1 = calcularTorque(rotacao);
+            double potencia1 = calcularPotencia(rotacao);
+            double torque2 = carro2.calcularTorque(rotacao);
+            double potencia2 = carro2.calcularPotencia(rotacao);
+            if (torque1 >= torque2 && potencia1 >= potencia2) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-//    public void piorQue(Carro carro2) {
-//        if (comparacaoPior(carro2)) {
-//            System.out.println(getMarcaModeloFormatado() + " é pior que " + carro2.getMarcaModeloFormatado());
-//        } else {
-//            System.out.println(getMarcaModeloFormatado() + " não é pior que " + carro2.getMarcaModeloFormatado());
-//        }
-//    }
+    public void piorQue(Carro carro2) {
+        if (comparacaoPior(carro2)) {
+            System.out.println(getMarcaModeloFormatado() + " é pior que " + carro2.getMarcaModeloFormatado());
+        } else {
+            System.out.println(getMarcaModeloFormatado() + " não é pior que " + carro2.getMarcaModeloFormatado());
+        }
+    }
 
     public int getNumero() { //Método para leitura, de forma indireta, do número do carro.
         return numero;
