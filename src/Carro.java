@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 class Carro {
     private int numero;
     private String marca;
@@ -7,6 +9,7 @@ class Carro {
     private CurvaTorque curvaTorque;
     private CurvaPotencia curvaPAntesMax;
     private CurvaPotencia curvaPDepoisMax;
+    private double PEletricaMax;
 
     public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax, CurvaTorque curvaTorque,
                  CurvaPotencia curvaPAntesMax, CurvaPotencia curvaPDepoisMax) {
@@ -23,11 +26,31 @@ class Carro {
             if (!validarNumero(categoria) || rpmPMax <= 0) {
                 throw new IllegalArgumentException("Número de carro ou RPM de potência máxima inválidos");
             }
+            if (Objects.equals(categoria.getNome(), "P1")) {
+                throw new IllegalArgumentException("Inclua a potência elétrica");
+            }
 //        }
 //        catch (IllegalArgumentException e) {
 //            System.out.println(e.getMessage());
 //            //Informando ao método que chamou a função (Main) sobre o erro
 //        }
+    }
+
+    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax, CurvaTorque curvaTorque,
+                 CurvaPotencia curvaPAntesMax, CurvaPotencia curvaPDepoisMax, double PEletricaMax) {
+        this.numero = numero;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.categoria = categoria;
+        this.rpmPMax = rpmPMax;
+        this.curvaTorque = curvaTorque;
+        this.curvaPAntesMax = curvaPAntesMax;
+        this.curvaPDepoisMax = curvaPDepoisMax;
+        this.PEletricaMax = PEletricaMax;
+
+        if (!validarNumero(categoria) || rpmPMax <= 0) {
+            throw new IllegalArgumentException("Número de carro ou RPM de potência máxima inválidos");
+        }
     }
 
 
@@ -62,12 +85,16 @@ class Carro {
         if (rotacao < 0) {
             throw new IllegalArgumentException("Rotação não pode ser negativa.");
         }
+        double bonus = 0;
+        if (Objects.equals(categoria.getNome(), "P1")) {
+            bonus = PEletricaMax;
+        }
         if (rotacao <= rpmPMax) {
             System.out.println("Rotação abaixo da ponto para potência máxima");
-            return curvaPAntesMax.calcularPotencia(rotacao);
+            return curvaPAntesMax.calcularPotencia(rotacao) + bonus;
         } else {
             System.out.println("Rotação acima do ponto para potência máxima");
-            return curvaPDepoisMax.calcularPotencia(rotacao);
+            return curvaPDepoisMax.calcularPotencia(rotacao) + bonus;
         }
     }
 
