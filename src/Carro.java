@@ -4,14 +4,14 @@ class Carro {
     private int numero;
     private String marca;
     private String modelo;
-    private Categoria categoria;
+    private CategoriaEnum categoria;
     private int rpmPMax;
     private CurvaTorque curvaTorque;
     private CurvaPotencia curvaPAntesMax;
     private CurvaPotencia curvaPDepoisMax;
     private double PEletricaMax;
 
-    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax, CurvaTorque curvaTorque,
+    public Carro(int numero, String marca, String modelo, CategoriaEnum categoria, int rpmPMax, CurvaTorque curvaTorque,
                  CurvaPotencia curvaPAntesMax, CurvaPotencia curvaPDepoisMax) {
         this.numero = numero;
         this.marca = marca;
@@ -36,7 +36,7 @@ class Carro {
 //        }
     }
 
-    public Carro(int numero, String marca, String modelo, Categoria categoria, int rpmPMax, CurvaTorque curvaTorque,
+    public Carro(int numero, String marca, String modelo, CategoriaEnum categoria, int rpmPMax, CurvaTorque curvaTorque,
                  CurvaPotencia curvaPAntesMax, CurvaPotencia curvaPDepoisMax, double PEletricaMax) {
         this.numero = numero;
         this.marca = marca;
@@ -54,7 +54,7 @@ class Carro {
     }
 
 
-    public boolean validarNumero(Categoria categoria) {
+    public boolean validarNumero(CategoriaEnum categoria) {
         int numDigitos = String.valueOf(numero).length();
         return numDigitos == categoria.getDigitos();
     }
@@ -160,7 +160,7 @@ class Carro {
         return modelo;
     }
 
-    public Categoria getCategoria() {
+    public CategoriaEnum getCategoria() {
         return categoria;
     }
 
